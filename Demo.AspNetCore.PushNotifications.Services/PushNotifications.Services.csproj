@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.AspNetCore.PushNotifications.Services.Abstractions\PushNotifications.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\Demo.AspNetCore.PushNotifications.Services.PushService\PushNotifications.Services.PushService.csproj" />
+    <ProjectReference Include="..\Demo.AspNetCore.PushNotifications.Services.Sqlite\PushNotifications.Services.Sqlite.csproj" />
+    <ProjectReference Include="..\PushNotifications.Services.Abstractions\PushNotifications.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\PushNotifications.Services.PushService\PushNotifications.Services.PushService.csproj" />
+    <ProjectReference Include="..\PushNotifications.Services.Sqlite\PushNotifications.Services.Sqlite.csproj" />
+  </ItemGroup>
+</Project>
