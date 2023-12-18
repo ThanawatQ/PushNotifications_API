@@ -7,6 +7,9 @@
 
 > # HTTPPOST
 ###  json [HttpPost("notifications")]
+- icon สามารถใส่เป็น URL ได้
+  
+
  ```ruby
  {
   "notification": "เนื้อหา",
@@ -20,7 +23,7 @@
       },
       {
       "url":"https://www.google.com",
-      "type":"openlink"
+      "type":"API"
       }
     ],
    "action":[
