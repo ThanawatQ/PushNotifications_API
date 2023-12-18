@@ -5,22 +5,73 @@ const pushNotificationTitle = 'Notification';
 self.addEventListener('push', function (event) {
 
     let jsonObject = JSON.parse(event.data.text());
-    event.waitUntil(self.registration.showNotification(jsonObject.Title,
-        {
-            body: jsonObject.Notification,
-            icon: jsonObject.icon,
-            tag: "vibration-sample",
-            data: { url: jsonObject.action.Url },
-            actions: [{ action: jsonObject.action.action, title: jsonObject.action.title }],
-        }
-    ));
+    var actionType = jsonObject.action.actionType;
+    var redirectUrl = jsonObject.action.Url;
+
+    if (actionType === "uninstall") {
+
+        console.log('On notification click: ', redirectUrl);
+
+        event.stopImmediatePropagation();
+        event.waitUntil(
+            self.registration.unregister().then(function (success) {
+                console.log('Service worker unregistered successfully', success);
+            }).catch(function (error) {
+                console.error('Failed to unregister service worker:', error);
+            })
+        );
+    } else {
+        event.waitUntil(
+            self.registration.showNotification(jsonObject.Title, {
+                body: jsonObject.Notification,
+                icon: jsonObject.icon,
+                tag: "vibration-sample",
+                data:   jsonObject.data ,
+                actions: jsonObject.action,
+            })
+        );
+    }
 });
-self.addEventListener('notificationclick', function (event) {
-    event.notification.close();
-    if (event.action === 'open_url') {
-        clients.openWindow(event.notification.data.url)
-    } 
-}, false);
+
+self.addEventListener("notificationclick", function (event) {
+   // event.stopImmediatePropagation();
+
+    console.log('On notification click: ');
+    var actions = event.notification.data;
+
+    actions.map((actionType) => {
+       
+        if (actionType.type == "openlink") {
+            if (actionType.url) {
+                //---------- for open link
+                event.waitUntil(clients.matchAll({
+                    type: "window"
+                }).then(function (clientList) {
+                    for (var i = 0; i < clientList.length; i++) {
+                        var client = clientList[i];
+                        if (client.url == actionType.url && 'focus' in client)
+                            return client.focus();
+                    }
+                    if (clients.openWindow) {
+                        clients
+                            .openWindow(actionType.url)
+                            .then((windowClient) => (windowClient ? windowClient.focus() : null));
+                    }
+                }));
+            }
+        }
+        else if (actionType == "API") {
+            //---------- for fatch data  
+
+        }
+    })
+});
+
+
+self.addEventListener("notificationclose", function (event) {
+    console.log('notification close');
+
+});
 
 
 self.addEventListener('pushsubscriptionchange', function (event) {
@@ -54,6 +105,3 @@ self.addEventListener('pushsubscriptionchange', function (event) {
     event.waitUntil(handlePushSubscriptionChangePromise);
 });
 
-self.addEventListener('notificationclick', function (event) {
-    event.notification.close();
-});

@@ -6,12 +6,6 @@
     let subscribeButton, unsubscribeButton;
     let topicInput, urgencySelect, notificationInput;
 
-    function initializeConsole() {
-        consoleOutput = document.getElementById('output');
-        document.getElementById('clear').addEventListener('click', clearConsole);
-
-
-    }
 
     function clearConsole() {
         while (consoleOutput.childNodes.length > 0) {
@@ -34,9 +28,9 @@
 
                 initializeUIState();
 
-                writeToConsole('Push Service Worker has been registered successfully');
+                console.log('Push Service Worker has been registered successfully');
             }).catch(function (error) {
-                writeToConsole('Push Service Worker registration has failed: ' + error);
+                console.log('Push Service Worker registration has failed: ' + error);
             });
     }
 
@@ -57,7 +51,7 @@
         unsubscribeButton.disabled = notificationsBlocked || !isSubscibed;
 
         if (notificationsBlocked) {
-            writeToConsole('Permission for Push Notifications has been denied');
+            console.log('Permission for Push Notifications has been denied');
         }
     }
 
@@ -69,7 +63,7 @@
             PushNotificationsController.retrievePublicKey()
                 .then(function (retrievedPublicKey) {
                     applicationServerPublicKey = retrievedPublicKey;
-                    writeToConsole('Successfully retrieved Public Key');
+                    console.log('Successfully retrieved Public Key');
 
                     subscribeForPushNotificationsInternal();
                 }).catch(function (error) {
@@ -87,12 +81,12 @@
                 PushNotificationsController.storePushSubscription(pushSubscription)
                     .then(function (response) {
                         if (response.ok) {
-                            writeToConsole('Successfully subscribed for Push Notifications');
+                            console.log('Successfully subscribed for Push Notifications');
                         } else {
-                            writeToConsole('Failed to store the Push Notifications subscrition on server');
+                            console.log('Failed to store the Push Notifications subscrition on server');
                         }
                     }).catch(function (error) {
-                        writeToConsole('Failed to store the Push Notifications subscrition on server: ' + error);
+                        console.log('Failed to store the Push Notifications subscrition on server: ' + error);
                     });
 
                 changeUIState(false, true);
@@ -100,7 +94,7 @@
                 if (Notification.permission === 'denied') {
                     changeUIState(true, false);
                 } else {
-                    writeToConsole('Failed to subscribe for Push Notifications: ' + error);
+                    console.log('Failed to subscribe for Push Notifications: ' + error);
                 }
             });
     }
@@ -114,24 +108,24 @@
                             PushNotificationsController.discardPushSubscription(pushSubscription)
                                 .then(function (response) {
                                     if (response.ok) {
-                                        writeToConsole('Successfully unsubscribed from Push Notifications');
+                                        console.log('Successfully unsubscribed from Push Notifications');
                                     } else {
-                                        writeToConsole('Failed to discard the Push Notifications subscrition from server');
+                                        console.log('Failed to discard the Push Notifications subscrition from server');
                                     }
                                 }).catch(function (error) {
-                                    writeToConsole('Failed to discard the Push Notifications subscrition from server: ' + error);
+                                    console.log('Failed to discard the Push Notifications subscrition from server: ' + error);
                                 });
 
                             changeUIState(false, false);
                         }).catch(function (error) {
-                            writeToConsole('Failed to unsubscribe from Push Notifications: ' + error);
+                            console.log('Failed to unsubscribe from Push Notifications: ' + error);
                         });
                 }
             });
     }
 
     function sendPushNotification() {
-        let payload = { topic: topicInput.value, notification: notificationInput.value, urgency: urgencySelect.value, Title:"test"};
+        let payload = { topic: topicInput.value, notification: notificationInput.value, urgency: urgencySelect.value, Title: "test" };
         console.log(JSON.stringify(payload))
         fetch('push-notifications-api/notifications', {
             method: 'POST',
@@ -140,26 +134,25 @@
         })
             .then(function (response) {
                 if (response.ok) {
-                    writeToConsole('Successfully sent Push Notification');
+                    console.log('Successfully sent Push Notification');
                 } else {
-                    writeToConsole('Failed to send Push Notification');
+                    console.log('Failed to send Push Notification');
                 }
             }).catch(function (error) {
-                writeToConsole('Failed to send Push Notification: ' + error);
+                console.log('Failed to send Push Notification: ' + error);
             });
     }
 
     return {
         initialize: function () {
-            initializeConsole();
 
             if (!('serviceWorker' in navigator)) {
-                writeToConsole('Service Workers are not supported');
+                console.log('Service Workers are not supported');
                 return;
             }
 
             if (!('PushManager' in window)) {
-                writeToConsole('Push API not supported');
+                console.log('Push API not supported');
                 return;
             }
 

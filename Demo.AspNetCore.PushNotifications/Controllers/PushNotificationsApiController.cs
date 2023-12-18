@@ -54,7 +54,7 @@ namespace Demo.AspNetCore.PushNotifications.Controllers
             string data = JsonConvert.SerializeObject(message);
             _pushNotificationsQueue.Enqueue(new PushMessage(data)
             {
-                Topic = message.Topic,
+                Topic="",
                 Urgency = message.Urgency
             });
 
@@ -67,7 +67,7 @@ namespace Demo.AspNetCore.PushNotifications.Controllers
             string data = JsonConvert.SerializeObject(message);
             _pushNotificationsQueue.Enqueue(new PushMessage(data)
             {
-                Topic = message.Topic,
+                Topic = "",
                 Urgency = message.Urgency
             });
 
