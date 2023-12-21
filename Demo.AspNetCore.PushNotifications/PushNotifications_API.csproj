@@ -9,25 +9,24 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="Demo.AspNetCore.PushNotifications.Services">
-      <HintPath>bin\Debug\net6.0\Demo.AspNetCore.PushNotifications.Services.dll</HintPath>
+      <HintPath>dll\Demo.AspNetCore.PushNotifications.Services.dll</HintPath>
     </Reference>
     <Reference Include="Demo.AspNetCore.PushNotifications.Services.Abstractions">
-      <HintPath>bin\Debug\net6.0\Demo.AspNetCore.PushNotifications.Services.Abstractions.dll</HintPath>
+      <HintPath>dll\Demo.AspNetCore.PushNotifications.Services.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Demo.AspNetCore.PushNotifications.Services.Cosmos">
-      <HintPath>bin\Debug\net6.0\Demo.AspNetCore.PushNotifications.Services.Cosmos.dll</HintPath>
+      <HintPath>dll\Demo.AspNetCore.PushNotifications.Services.Cosmos.dll</HintPath>
     </Reference>
     <Reference Include="Demo.AspNetCore.PushNotifications.Services.LiteDB">
-      <HintPath>bin\Debug\net6.0\Demo.AspNetCore.PushNotifications.Services.LiteDB.dll</HintPath>
+      <HintPath>dll\Demo.AspNetCore.PushNotifications.Services.LiteDB.dll</HintPath>
     </Reference>
     <Reference Include="Demo.AspNetCore.PushNotifications.Services.PushService">
-      <HintPath>bin\Debug\net6.0\Demo.AspNetCore.PushNotifications.Services.PushService.dll</HintPath>
+      <HintPath>dll\Demo.AspNetCore.PushNotifications.Services.PushService.dll</HintPath>
     </Reference>
     <Reference Include="Demo.AspNetCore.PushNotifications.Services.Sqlite">
-      <HintPath>bin\Debug\net6.0\Demo.AspNetCore.PushNotifications.Services.Sqlite.dll</HintPath>
+      <HintPath>dll\Demo.AspNetCore.PushNotifications.Services.Sqlite.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
